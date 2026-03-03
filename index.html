@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-MZ">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLD News | Premium Moçambique</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #059669; /* Verde esmeralda profissional */
+            --accent-color: #10b981;
+            --dark-text: #111827;
+            --light-text: #6b7280;
+            --bg-body: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--dark-text);
+            padding-bottom: 50px;
+        }
+
+        /* Header Estilizado */
+        header {
+            background: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--primary-color);
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        header h1 span { color: var(--primary-color); }
+
+        /* Grelha de Notícias */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        /* Cartão de Notícia Premium */
+        .news-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #edf2f7;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-content { padding: 25px; flex-grow: 1; }
+
+        .source-tag {
+            background: #ecfdf5;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: var(--dark-text);
+        }
+
+        .news-date {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .read-more {
+            margin-top: auto;
+            display: block;
+            text-align: center;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 0 0 16px 16px;
+            transition: background 0.2s;
+        }
+
+        .read-more:hover { background: var(--accent-color); }
+
+        /* Loader */
+        #loader {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 50px;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>CLD <span>News</span> MZ</h1>
+        <p>A tua fonte de informação independente e atualizada</p>
+    </header>
+
+    <div class="container">
+        <div id="loader">🗞️ A carregar as manchetes de Moçambique...</div>
+        <div class="news-grid" id="news-container"></div>
+    </div>
+
+    <script>
+        const fontes = [
+            'https://mznews.co.mz/feed/',
+            'https://cartamz.com/feed/',
+            'https://integritymag.co.mz/feed/',
+            'https://evidencias.co.mz/feed/',
+            'https://jornalrigor.co.mz/feed/',
+            'https://www.jornalikweli.co.mz/feed/',
+            'https://dossiersefactos.co.mz/feed/',
+            'https://opais.co.mz/feed/',
+            'https://www.folhademaputo.co.mz/feed/'
+        ];
+
+        async function carregarPortal() {
+            const container = document.getElementById('news-container');
+            const loader = document.getElementById('loader');
+            let todasNoticias = [];
+
+            // Busca as notícias em paralelo (mais rápido)
+            const promessas = fontes.map(async (url) => {
+                try {
+                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+                    const data = await res.json();
+                    return data.items ? data.items.map(item => ({ ...item, jornal: data.feed.title })) : [];
+                } catch { return []; }
+            });
+
+            const resultados = await Promise.all(promessas);
+            resultados.forEach(lista => todasNoticias = [...todasNoticias, ...lista]);
+
+            // Ordenar por data
+            todasNoticias.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+            loader.style.display = 'none';
+            todasNoticias.forEach(item => {
+                const data = new Date(item.pubDate).toLocaleDateString('pt-MZ', { day: '2-digit', month: 'long', hour: '2-digit', minute: '2-digit' });
+                
+                container.innerHTML += `
+                    <article class="news-card">
+                        <div class="card-content">
+                            <span class="source-tag">${item.jornal}</span>
+                            <h2 class="news-title">${item.title}</h2>
+                            <span class="news-date">🕒 ${data}</span>
+                        </div>
+                        <a href="${item.link}" target="_blank" class="read-more">Ler Reportagem Completa</a>
+                    </article>
+                `;
+            });
+        }
+
+        carregarPortal();
+    </script>
+</body>
+</html>
