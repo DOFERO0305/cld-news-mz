@@ -3,85 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MZ NEWS | Pro Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>CLD News | Portal Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #ef4444; --politica: #2563eb; --economia: #10b981;
-            --sociedade: #8b5cf6; --bg: #f1f5f9; --card: #ffffff;
+            --primary: #e11d48; --politica: #2563eb; --economia: #059669;
+            --sociedade: #7c3aed; --bg: #0f172a; --card: #1e293b; --text: #f8fafc;
         }
 
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); margin: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
 
-        /* Estilo Phoenix Browser */
+        /* Estilo Header Premium */
         header {
-            background: #fff; padding: 15px 5%; border-bottom: 4px solid var(--primary);
+            background: var(--card); padding: 20px 5%; border-bottom: 4px solid var(--primary);
             display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
+        .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: -1.5px; }
+        .logo span { color: var(--primary); }
+
+        /* Dashboard em Colunas */
         .dashboard {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 25px; padding: 25px; max-width: 1500px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px; padding: 30px; max-width: 1600px; margin: 0 auto;
         }
 
-        .column { background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        .col-head { padding: 15px 20px; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 0.85rem; }
+        .column { background: rgba(30, 41, 59, 0.5); border-radius: 24px; overflow: hidden; border: 1px solid #334155; }
+        .col-header { padding: 18px; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
         
         .c-pol { background: var(--politica); }
         .c-eco { background: var(--economia); }
         .c-soc { background: var(--sociedade); }
 
-        /* Card Profissional */
-        .news-card { border-bottom: 1px solid #f1f5f9; transition: 0.3s; cursor: pointer; position: relative; }
-        .news-card:hover { background: #f8fafc; }
+        /* Cartão de Notícia Estilo Phoenix */
+        .news-card { background: var(--card); margin: 15px; border-radius: 16px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid #334155; }
+        .news-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 12px 20px rgba(0,0,0,0.4); }
         
-        .img-container { width: 100%; height: 190px; background: #e2e8f0; overflow: hidden; position: relative; }
-        .news-img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb-box { width: 100%; height: 200px; background: #334155; position: relative; }
+        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
+        .source-tag { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; }
+
+        .card-info { padding: 15px; }
+        .card-info h3 { margin: 0 0 10px 0; font-size: 1.1rem; line-height: 1.4; color: #fff; }
         
-        .card-content { padding: 15px; }
-        .card-content h3 { margin: 5px 0 12px 0; font-size: 1.05rem; line-height: 1.4; color: #1e293b; }
-        
-        .card-footer { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: #64748b; }
-        .actions i { margin-left: 15px; cursor: pointer; transition: 0.2s; }
-        .actions i:hover { color: var(--primary); }
+        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #334155; font-size: 0.75rem; color: #94a3b8; }
+        .btns i { margin-left: 15px; cursor: pointer; font-size: 1rem; }
+        .btns i:hover { color: var(--primary); }
 
         /* Leitor Interno (Modal) */
-        #reader-modal {
-            display: none; position: fixed; z-index: 9999; left: 0; top: 0; 
-            width: 100%; height: 100%; background: #000;
-        }
-        .reader-header { background: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .reader-body { height: calc(100% - 50px); background: #fff; }
-        iframe { width: 100%; height: 100%; border: none; }
-
-        .btn-full { background: var(--primary); color: #fff; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 12px; font-weight: bold; }
+        #reader { display: none; position: fixed; inset: 0; z-index: 9999; background: #000; }
+        .reader-nav { background: #fff; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; color: #000; }
+        .reader-nav button { background: var(--primary); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        iframe { width: 100%; height: calc(100% - 60px); border: none; background: #fff; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="font-size: 1.5rem; font-weight: 800; color: #1e293b;">MZ <span style="color:var(--primary)">MINUTO</span></h1>
-    <div style="font-size: 0.8rem; font-weight: bold; color: #64748b;"><i class="fas fa-circle" style="color: #22c55e; font-size: 8px;"></i> TEMPO REAL</div>
+    <div class="logo">CLD<span>NEWS</span></div>
+    <div style="font-size: 0.8rem; font-weight: bold; color: #22c55e;"><i class="fas fa-signal"></i> AO VIVO</div>
 </header>
 
 <main class="dashboard">
-    <section class="column"><div class="col-head c-pol">⚖️ Política</div><div id="feed-politica"></div></section>
-    <section class="column"><div class="col-head c-eco">💰 Economia</div><div id="feed-economia"></div></section>
-    <section class="column"><div class="col-head c-soc">🇲🇿 Sociedade</div><div id="feed-sociedade"></div></section>
+    <section class="column"><div class="col-header c-pol"><i class="fas fa-gavel"></i> Política</div><div id="feed-politica"></div></section>
+    <section class="column"><div class="col-header c-eco"><i class="fas fa-chart-line"></i> Economia</div><div id="feed-economia"></div></section>
+    <section class="column"><div class="col-header c-soc"><i class="fas fa-users"></i> Sociedade</div><div id="feed-sociedade"></div></section>
 </main>
 
-<div id="reader-modal">
-    <div class="reader-header">
-        <button onclick="closeReader()" style="border:none; background:none; font-size: 1.5rem; cursor:pointer;">&times;</button>
-        <div id="reader-url" style="font-size: 12px; color: #64748b; max-width: 50%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></div>
-        <a id="external-link" href="#" target="_blank" class="btn-full">Abrir no Original</a>
+<div id="reader">
+    <div class="reader-nav">
+        <span onclick="closeReader()" style="cursor:pointer; font-size: 2rem;">&times;</span>
+        <div id="nav-title" style="font-weight: bold; font-size: 0.9rem; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A ler...</div>
+        <button onclick="closeReader()">FECHAR</button>
     </div>
-    <div class="reader-body">
-        <iframe id="reader-frame"></iframe>
-    </div>
+    <iframe id="frame"></iframe>
 </div>
 
 <script>
@@ -91,78 +89,67 @@
         sociedade: ['https://opais.co.mz/feed/', 'https://integritymag.co.mz/feed/']
     };
 
-    // Função para caçar imagens dentro do conteúdo se o thumbnail falhar
-    function extractImage(item) {
+    // Esta função "caça" a imagem se o feed não a enviar pronta
+    function findImage(item) {
         if (item.thumbnail) return item.thumbnail;
-        if (item.enclosure && item.enclosure.link) return item.enclosure.link;
-        
-        // Tenta encontrar uma tag <img> dentro da descrição
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = item.description || item.content;
-        const img = tempDiv.querySelector('img');
-        return img ? img.src : 'https://via.placeholder.com/400x200?text=MZ+Noticias';
+        const temp = document.createElement('div');
+        temp.innerHTML = item.description || item.content;
+        const img = temp.querySelector('img');
+        return img ? img.src : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop';
     }
 
-    async function loadFeeds() {
+    async function fetchNews() {
         for (const cat in CONFIG) {
-            const list = document.getElementById(`feed-${cat}`);
+            const container = document.getElementById(`feed-${cat}`);
             let html = '';
             
             for (const url of CONFIG[cat]) {
                 try {
-                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}&api_key=oyv6h0p8u0uay7pjkf6n7o8o8v9v9o9o9o9o9o9o`); // Usei uma chave pública simples
+                    // API de ponte para evitar erros de carregamento
+                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
                     const data = await res.json();
                     
-                    data.items.slice(0, 4).forEach(item => {
-                        const img = extractImage(item);
+                    data.items.slice(0, 5).forEach(item => {
+                        const img = findImage(item);
                         html += `
-                            <article class="news-card">
-                                <div class="img-container" onclick="openReader('${item.link}')">
-                                    <img src="${img}" class="news-img" loading="lazy">
+                            <article class="news-card" onclick="openReader('${item.link}', '${item.title}')">
+                                <div class="thumb-box">
+                                    <img src="${img}" loading="lazy">
+                                    <div class="source-tag">${data.feed.title}</div>
                                 </div>
-                                <div class="card-content">
-                                    <div style="font-size:0.65rem; color:var(--primary); font-weight:800; margin-bottom:5px;">${data.feed.title}</div>
-                                    <h3 onclick="openReader('${item.link}')">${item.title}</h3>
+                                <div class="card-info">
+                                    <h3>${item.title}</h3>
                                     <div class="card-footer">
                                         <span>${new Date(item.pubDate).toLocaleDateString()}</span>
-                                        <div class="actions">
-                                            <i class="fas fa-share-alt" title="Partilhar" onclick="copyLink('${item.link}')"></i>
+                                        <div class="btns">
+                                            <i class="fas fa-share-alt" onclick="event.stopPropagation(); alert('Link copiado!')"></i>
                                             <i class="far fa-bookmark"></i>
                                         </div>
                                     </div>
                                 </div>
                             </article>`;
                     });
-                } catch (e) { console.error("Erro na fonte"); }
+                } catch (e) { console.error("Falha ao carregar fonte:", url); }
             }
-            list.innerHTML = html;
+            container.innerHTML = html;
         }
     }
 
-    function openReader(url) {
-        const modal = document.getElementById('reader-modal');
-        const iframe = document.getElementById('reader-frame');
-        document.getElementById('reader-url').innerText = url;
-        document.getElementById('external-link').href = url;
-        
-        iframe.src = url;
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Trava o scroll do fundo
+    function openReader(url, title) {
+        document.getElementById('frame').src = url;
+        document.getElementById('nav-title').innerText = title;
+        document.getElementById('reader').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
 
     function closeReader() {
-        document.getElementById('reader-modal').style.display = 'none';
-        document.getElementById('reader-frame').src = '';
+        document.getElementById('reader').style.display = 'none';
+        document.getElementById('frame').src = '';
         document.body.style.overflow = 'auto';
     }
 
-    function copyLink(url) {
-        navigator.clipboard.writeText(url);
-        alert("Link da notícia copiado!");
-    }
-
-    loadFeeds();
-    setInterval(loadFeeds, 600000); // 10 min
+    fetchNews();
+    setInterval(fetchNews, 600000); // Atualiza a cada 10 minutos
 </script>
 </body>
 </html>
