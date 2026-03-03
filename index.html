@@ -3,99 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLD News Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>MZ News | Ao Minuto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --card: #1e293b;
-            --accent-1: #3b82f6; /* Azul Política */
-            --accent-2: #10b981; /* Verde Economia */
-            --accent-3: #f59e0b; /* Laranja Internacional */
-            --text: #f8fafc;
+            --primary: #e11d48; /* Vermelho Notícia */
+            --politica: #2563eb;
+            --economia: #059669;
+            --sociedade: #7c3aed;
+            --bg: #f8fafc;
+            --text: #1e293b;
         }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: var(--bg); 
             color: var(--text);
             margin: 0;
-            padding: 20px;
         }
 
         header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 1px solid #334155;
-            margin-bottom: 40px;
-        }
-
-        /* O segredo do Dashboard: Grid de 3 colunas */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
-            align-items: start;
-        }
-
-        .column {
-            background: rgba(30, 41, 59, 0.5);
-            border-radius: 16px;
+            background: #fff;
             padding: 20px;
-            border-top: 5px solid var(--accent-1);
+            border-bottom: 3px solid var(--primary);
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        /* Cores diferentes para cada coluna */
-        .col-politica { border-top-color: var(--accent-1); }
-        .col-economia { border-top-color: var(--accent-2); }
-        .col-geral { border-top-color: var(--accent-3); }
-
-        .column-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .main-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .news-item {
-            background: var(--card);
-            padding: 15px;
+        .category-column {
+            background: #fff;
             border-radius: 12px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: transform 0.2s;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
 
-        .news-item:hover {
-            transform: scale(1.02);
-            background: #2d3748;
+        .category-header {
+            padding: 15px;
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* Estilos específicos das categorias */
+        .cat-politica .category-header { background: var(--politica); }
+        .cat-economia .category-header { background: var(--economia); }
+        .cat-sociedade .category-header { background: var(--sociedade); }
+
+        .news-list { padding: 10px; }
+
+        .news-card {
+            padding: 15px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .news-card:hover { background: #f1f5f9; }
+
+        .news-card h3 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .news-meta {
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>CLD <span>NEWS</span> DASHBOARD</h1>
-        <p>A tua central de inteligência e notícias 🇲🇿</p>
-    </header>
+<header>
+    <h1>MZ <span>MINUTO</span></h1>
+</header>
 
-    <div class="dashboard">
-        <div class="column col-politica" id="col-politica">
-            <div class="column-title">⚖️ Política</div>
-            <div class="news-list" id="list-politica">Carregando...</div>
-        </div>
+<main class="main-dashboard">
+    <section class="category-column cat-politica">
+        <div class="category-header">Política</div>
+        <div id="feed-politica" class="news-list">A carregar...</div>
+    </section>
 
-        <div class="column col-economia" id="col-economia">
-            <div class="column-title">💰 Economia</div>
-            <div class="news-list" id="list-economia">Carregando...</div>
-        </div>
+    <section class="category-column cat-economia">
+        <div class="category-header">Economia</div>
+        <div id="feed-economia" class="news-list">A carregar...</div>
+    </section>
 
-        <div class="column col-geral" id="col-geral">
-            <div class="column-title">🌍 Internacional</div>
-            <div class="news-list" id="list-geral">Carregando...</div>
-        </div>
-    </div>
+    <section class="category-column cat-sociedade">
+        <div class="category-header">Sociedade & País</div>
+        <div id="feed-sociedade" class="news-list">A carregar...</div>
+    </section>
+</main>
 
 </body>
 </html>
