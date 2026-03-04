@@ -1,155 +1,175 @@
 <!DOCTYPE html>
-<html lang="pt-MZ">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLD News | Portal Profissional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Portal de Notícias | Global News</title>
     <style>
-        :root {
-            --primary: #e11d48; --politica: #2563eb; --economia: #059669;
-            --sociedade: #7c3aed; --bg: #0f172a; --card: #1e293b; --text: #f8fafc;
+        /* Reset e Configurações Gerais */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; display: block; }
+
+        /* Container */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Header */
+        header { background: #fff; border-bottom: 3px solid #e31e24; padding: 20px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .nav-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .logo { font-size: 2rem; font-weight: 800; color: #e31e24; text-transform: uppercase; }
+        .nav-links { display: flex; list-style: none; gap: 20px; border-top: 1px solid #eee; padding-top: 15px; }
+        .nav-links a:hover { color: #e31e24; }
+
+        /* Main Content Layout */
+        .main-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; margin-top: 30px; }
+
+        /* Notícia Principal (Hero) */
+        .hero-article { position: relative; margin-bottom: 30px; border-radius: 8px; overflow: hidden; }
+        .hero-image { height: 450px; object-fit: cover; width: 100%; }
+        .hero-content { position: absolute; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: #fff; padding: 30px; width: 100%; }
+        .category { background: #e31e24; color: #fff; padding: 3px 10px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+
+        /* Grid de Notícias */
+        .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: #fff; border-radius: 5px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .card-body { padding: 15px; }
+        .card-title { font-size: 1.1rem; margin: 10px 0; }
+
+        /* Sidebar */
+        .sidebar { background: #fff; padding: 20px; border-radius: 5px; height: fit-content; }
+        .sidebar h3 { border-bottom: 2px solid #e31e24; margin-bottom: 15px; padding-bottom: 5px; }
+        .popular-list { list-style: none; }
+        .popular-item { padding: 10px 0; border-bottom: 1px solid #eee; }
+        .popular-item:last-child { border: none; }
+
+        /* Newsletter */
+        .newsletter { background: #333; color: #fff; padding: 20px; margin-top: 20px; border-radius: 5px; }
+        .newsletter input { width: 100%; padding: 10px; margin: 10px 0; border: none; }
+        .newsletter button { width: 100%; padding: 10px; background: #e31e24; color: #fff; border: none; cursor: pointer; font-weight: bold; }
+
+        /* Footer */
+        footer { background: #222; color: #fff; padding: 50px 0; margin-top: 50px; }
+        .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .nav-links { overflow-x: auto; white-space: nowrap; }
+            .hero-image { height: 300px; }
         }
-
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
-
-        /* Estilo Header Premium */
-        header {
-            background: var(--card); padding: 20px 5%; border-bottom: 4px solid var(--primary);
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .logo { font-size: 1.8rem; font-weight: 800; letter-spacing: -1.5px; }
-        .logo span { color: var(--primary); }
-
-        /* Dashboard em Colunas */
-        .dashboard {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px; padding: 30px; max-width: 1600px; margin: 0 auto;
-        }
-
-        .column { background: rgba(30, 41, 59, 0.5); border-radius: 24px; overflow: hidden; border: 1px solid #334155; }
-        .col-header { padding: 18px; color: #fff; font-weight: 800; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
-        
-        .c-pol { background: var(--politica); }
-        .c-eco { background: var(--economia); }
-        .c-soc { background: var(--sociedade); }
-
-        /* Cartão de Notícia Estilo Phoenix */
-        .news-card { background: var(--card); margin: 15px; border-radius: 16px; overflow: hidden; transition: 0.3s; cursor: pointer; border: 1px solid #334155; }
-        .news-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 12px 20px rgba(0,0,0,0.4); }
-        
-        .thumb-box { width: 100%; height: 200px; background: #334155; position: relative; }
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; }
-        .source-tag { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; }
-
-        .card-info { padding: 15px; }
-        .card-info h3 { margin: 0 0 10px 0; font-size: 1.1rem; line-height: 1.4; color: #fff; }
-        
-        .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid #334155; font-size: 0.75rem; color: #94a3b8; }
-        .btns i { margin-left: 15px; cursor: pointer; font-size: 1rem; }
-        .btns i:hover { color: var(--primary); }
-
-        /* Leitor Interno (Modal) */
-        #reader { display: none; position: fixed; inset: 0; z-index: 9999; background: #000; }
-        .reader-nav { background: #fff; padding: 12px 25px; display: flex; justify-content: space-between; align-items: center; color: #000; }
-        .reader-nav button { background: var(--primary); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        iframe { width: 100%; height: calc(100% - 60px); border: none; background: #fff; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">CLD<span>NEWS</span></div>
-    <div style="font-size: 0.8rem; font-weight: bold; color: #22c55e;"><i class="fas fa-signal"></i> AO VIVO</div>
-</header>
+    <header>
+        <div class="container">
+            <div class="nav-top">
+                <div class="logo">Global<span>News</span></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar notícias...">
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#">Brasil</a></li>
+                    <li><a href="#">Mundo</a></li>
+                    <li><a href="#">Economia</a></li>
+                    <li><a href="#">Tecnologia</a></li>
+                    <li><a href="#">Esportes</a></li>
+                    <li><a href="#">Cultura</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<main class="dashboard">
-    <section class="column"><div class="col-header c-pol"><i class="fas fa-gavel"></i> Política</div><div id="feed-politica"></div></section>
-    <section class="column"><div class="col-header c-eco"><i class="fas fa-chart-line"></i> Economia</div><div id="feed-economia"></div></section>
-    <section class="column"><div class="col-header c-soc"><i class="fas fa-users"></i> Sociedade</div><div id="feed-sociedade"></div></section>
-</main>
+    <main class="container">
+        <div class="main-layout">
+            <section class="content">
+                
+                <article class="hero-article">
+                    <img src="https://picsum.photos/800/450" alt="Notícia Principal" class="hero-image">
+                    <div class="hero-content">
+                        <span class="category">Urgente</span>
+                        <h2>Título da Notícia Principal de Impacto Mundial</h2>
+                        <p>Uma breve descrição sobre os acontecimentos mais recentes que estão mudando o cenário atual.</p>
+                    </div>
+                </article>
 
-<div id="reader">
-    <div class="reader-nav">
-        <span onclick="closeReader()" style="cursor:pointer; font-size: 2rem;">&times;</span>
-        <div id="nav-title" style="font-weight: bold; font-size: 0.9rem; max-width: 60%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">A ler...</div>
-        <button onclick="closeReader()">FECHAR</button>
-    </div>
-    <iframe id="frame"></iframe>
-</div>
+                <div class="news-grid">
+                    <article class="card">
+                        <img src="https://picsum.photos/400/250?random=1" alt="News">
+                        <div class="card-body">
+                            <span class="category" style="background: #27ae60;">Tecnologia</span>
+                            <h3 class="card-title">Nova IA revoluciona o mercado de trabalho</h3>
+                            <p>Especialistas debatem os limites da automação...</p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="https://picsum.photos/400/250?random=2" alt="News">
+                        <div class="card-body">
+                            <span class="category" style="background: #2980b9;">Economia</span>
+                            <h3 class="card-title">Bolsa de valores atinge recorde histórico</h3>
+                            <p>Entenda o que motivou a alta nas ações hoje...</p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <img src="https://picsum.photos/400/250?random=3" alt="News">
+                        <div class="card-body">
+                            <span class="category">Política</span>
+                            <h3 class="card-title">Novas leis entram em vigor nesta segunda</h3>
+                            <p>Confira o que muda na legislação para o cidadão...</p>
+                        </div>
+                    </article>
+                </div>
+            </section>
 
-<script>
-    const CONFIG = {
-        politica: ['https://cartamz.com/feed/', 'https://evidencias.co.mz/feed/'],
-        economia: ['https://mznews.co.mz/feed/', 'https://dossiersefactos.co.mz/feed/'],
-        sociedade: ['https://opais.co.mz/feed/', 'https://integritymag.co.mz/feed/']
-    };
+            <aside class="sidebar">
+                <h3>Mais Lidas</h3>
+                <ul class="popular-list">
+                    <li class="popular-item">
+                        <a href="#">1. Como planejar suas finanças para 2026</a>
+                    </li>
+                    <li class="popular-item">
+                        <a href="#">2. Os melhores destinos para viajar no verão</a>
+                    </li>
+                    <li class="popular-item">
+                        <a href="#">3. Resultados do campeonato nacional</a>
+                    </li>
+                    <li class="popular-item">
+                        <a href="#">4. Descoberta científica em Marte surpreende NASA</a>
+                    </li>
+                </ul>
 
-    // Esta função "caça" a imagem se o feed não a enviar pronta
-    function findImage(item) {
-        if (item.thumbnail) return item.thumbnail;
-        const temp = document.createElement('div');
-        temp.innerHTML = item.description || item.content;
-        const img = temp.querySelector('img');
-        return img ? img.src : 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop';
-    }
+                <div class="newsletter">
+                    <h4>Assine nossa Newsletter</h4>
+                    <p>Receba as principais notícias no seu e-mail.</p>
+                    <input type="email" placeholder="Seu melhor e-mail">
+                    <button>Inscrever</button>
+                </div>
+            </aside>
+        </div>
+    </main>
 
-    async function fetchNews() {
-        for (const cat in CONFIG) {
-            const container = document.getElementById(`feed-${cat}`);
-            let html = '';
-            
-            for (const url of CONFIG[cat]) {
-                try {
-                    // API de ponte para evitar erros de carregamento
-                    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-                    const data = await res.json();
-                    
-                    data.items.slice(0, 5).forEach(item => {
-                        const img = findImage(item);
-                        html += `
-                            <article class="news-card" onclick="openReader('${item.link}', '${item.title}')">
-                                <div class="thumb-box">
-                                    <img src="${img}" loading="lazy">
-                                    <div class="source-tag">${data.feed.title}</div>
-                                </div>
-                                <div class="card-info">
-                                    <h3>${item.title}</h3>
-                                    <div class="card-footer">
-                                        <span>${new Date(item.pubDate).toLocaleDateString()}</span>
-                                        <div class="btns">
-                                            <i class="fas fa-share-alt" onclick="event.stopPropagation(); alert('Link copiado!')"></i>
-                                            <i class="far fa-bookmark"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>`;
-                    });
-                } catch (e) { console.error("Falha ao carregar fonte:", url); }
-            }
-            container.innerHTML = html;
-        }
-    }
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h3>Global News</h3>
+                <p>O seu portal de notícias em tempo real.</p>
+            </div>
+            <div>
+                <h4>Categorias</h4>
+                <p>Política | Tecnologia | Esportes</p>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <p>contato@globalnews.com</p>
+            </div>
+        </div>
+        <center style="margin-top: 30px; opacity: 0.6; font-size: 0.8rem;">
+            &copy; 2026 Global News - Todos os direitos reservados.
+        </center>
+    </footer>
 
-    function openReader(url, title) {
-        document.getElementById('frame').src = url;
-        document.getElementById('nav-title').innerText = title;
-        document.getElementById('reader').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeReader() {
-        document.getElementById('reader').style.display = 'none';
-        document.getElementById('frame').src = '';
-        document.body.style.overflow = 'auto';
-    }
-
-    fetchNews();
-    setInterval(fetchNews, 600000); // Atualiza a cada 10 minutos
-</script>
 </body>
 </html>
