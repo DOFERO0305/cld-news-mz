@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Novelas & Histórias Virais</title>
+    <title>Histórias & Reels Virais</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root { --primary: #1877F2; --bg: #141414; --surface: #2f2f2f; --text: #ffffff; --text-meta: #aaaaaa; --radius-md: 8px; --border: #333; }
+        :root { --primary: #E1306C; --bg: #141414; --surface: #2f2f2f; --text: #ffffff; --text-meta: #aaaaaa; --radius-md: 8px; --border: #333; }
         body.light-mode { --bg: #f8fafc; --surface: #ffffff; --text: #0f172a; --text-meta: #64748b; --border: #e2e8f0; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; }
@@ -19,7 +19,7 @@
         .menu-btn { background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; transition: 0.3s; }
         .logo-container { display: flex; align-items: center; cursor: pointer; gap: 15px; }
         .logo { font-weight: 800; font-size: 1.5rem; color: var(--text); text-decoration: none; letter-spacing: -1px; }
-        .logo span { color: #E1306C; /* Cor IG para combinar com o feed */ }
+        .logo span { color: var(--primary); }
 
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 2000; display: none; opacity: 0; transition: 0.3s; }
         .sidebar { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: var(--bg); z-index: 2001; transition: 0.3s ease-in-out; padding: 20px; display: flex; flex-direction: column; box-shadow: 5px 0 15px rgba(0,0,0,0.2); border-right: 1px solid var(--border); }
@@ -30,8 +30,8 @@
         .side-cat:hover, .side-cat.active { background: var(--surface); color: var(--primary); }
 
         .feed-header { max-width: 1200px; margin: 20px auto 10px; padding: 0 20px; font-size: 1.2rem; font-weight: 700; color: var(--text); display: flex; align-items: center; justify-content: space-between; }
-        .feed-count { font-size: 0.9rem; color: var(--text-meta); font-weight: normal; }
-        .refresh-btn { background: none; border: none; color: #E1306C; font-size: 1.2rem; cursor: pointer; transition: 0.2s; padding: 5px; margin-left: 10px; }
+        .feed-count { font-size: 0.9rem; color: var(--text-meta); font-weight: normal; transition: 0.3s; }
+        .refresh-btn { background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer; transition: 0.2s; padding: 5px; margin-left: 10px; }
         .refresh-btn:active { transform: rotate(180deg) scale(0.8); }
 
         .feed { padding: 20px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
@@ -56,13 +56,12 @@
         .trailer-container { position: relative; width: 100%; display: flex; justify-content: center; background: #000; border-radius: var(--radius-md); overflow: hidden; min-height: 400px;}
         .trailer-container iframe { width: 100%; height: 550px; border: none; border-radius: 8px;}
         
-        /* Botão Original Facebook/Instagram */
-        .fb-fallback-btn { display: flex; justify-content: center; align-items: center; gap: 8px; background: #1877F2; color: white; text-decoration: none; padding: 12px; border-radius: var(--radius-md); font-weight: 700; margin-top: 15px; transition: 0.2s; }
-        .fb-fallback-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .ig-fallback-btn { display: flex; justify-content: center; align-items: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; text-decoration: none; padding: 12px; border-radius: var(--radius-md); font-weight: 700; margin-top: 15px; transition: 0.2s; }
+        .ig-fallback-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         .action-row { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 15px; }
         .btn-action { flex: 1; padding: 12px; border: none; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.2s; }
-        .btn-next { background: #E1306C; color: white; }
+        .btn-next { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
         .btn-icon { background: var(--surface); color: var(--text); border: 1px solid var(--border); flex: 0.3; }
 
         .related-section { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px; }
@@ -74,7 +73,7 @@
         .related-item img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
         .related-item-title { position: absolute; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: white; width: 100%; font-size: 0.75rem; padding: 20px 5px 5px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
 
-        .loader { text-align: center; padding: 20px; color: #E1306C; font-size: 2rem; width: 100%; grid-column: 1/-1; opacity: 0; transition: 0.3s; min-height: 80px; }
+        .loader { text-align: center; padding: 20px; color: var(--primary); font-size: 2rem; width: 100%; grid-column: 1/-1; opacity: 0; transition: 0.3s; min-height: 80px; }
     </style>
 </head>
 <body>
@@ -91,7 +90,7 @@
         <div class="nav-top">
             <div class="logo-container">
                 <button class="menu-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-                <div class="logo" onclick="window.location.reload()">Novelas<span>Virais</span></div>
+                <div class="logo" onclick="window.location.reload()">Reels<span>Virais</span></div>
             </div>
             <button class="menu-btn" onclick="toggleTheme()"><i id="theme-icon" class="fas fa-sun"></i></button>
         </div>
@@ -99,8 +98,8 @@
 
     <div class="feed-header">
         <div style="display: flex; align-items: center;">
-            <i class="fas fa-fire" style="color: #E1306C; margin-right: 8px;"></i> Últimas Novelas
-            <button class="refresh-btn" onclick="fetchContent()" title="Procurar novos episódios"><i class="fas fa-sync-alt"></i></button>
+            <i class="fab fa-instagram" style="color: var(--primary); margin-right: 8px;"></i> Últimos Reels
+            <button class="refresh-btn" onclick="fetchContent()" title="Procurar novos vídeos"><i class="fas fa-sync-alt"></i></button>
         </div>
         <span class="feed-count" id="feed-count-label">A carregar...</span>
     </div>
@@ -115,20 +114,20 @@
                 
                 <div class="trailer-container" id="m-trailer"></div>
                 
-                <a id="m-fallback-btn" href="#" target="_blank" class="fb-fallback-btn">
-                    <i class="fab fa-instagram"></i> Abrir vídeo original
+                <a id="m-fallback-btn" href="#" target="_blank" class="ig-fallback-btn">
+                    <i class="fab fa-instagram"></i> Abrir vídeo no Instagram
                 </a>
 
                 <h2 id="m-title" class="modal-title">Título</h2>
                 <div class="modal-time-detail" id="m-time"><i class="far fa-clock"></i> Publicado há pouco</div>
                 
                 <div class="action-row">
-                    <button id="m-next-btn" class="btn-action btn-next"><i class="fas fa-step-forward"></i> Próximo Episódio</button>
+                    <button id="m-next-btn" class="btn-action btn-next"><i class="fas fa-step-forward"></i> Próximo</button>
                     <button id="m-save-btn" class="btn-action btn-icon" onclick="toggleSave()"><i class="far fa-bookmark"></i></button>
                 </div>
 
                 <div class="related-section" id="related-section">
-                    <div class="related-title"><i class="fas fa-list-ul"></i> Mais Episódios:</div>
+                    <div class="related-title"><i class="fas fa-list-ul"></i> Mais Vídeos:</div>
                     <div class="related-grid" id="m-related-grid"></div>
                 </div>
             </div>
@@ -136,12 +135,11 @@
     </div>
 
     <script>
-        // O TEU LINK DO INSTAGRAM
-        const JSON_FEED_URL = 'https://rss.app/feeds/v1.1/cTmbwALSEul7wgx6.json';
+        const JSON_FEED_URL = 'https://rss.app/feeds/v1.1/hvnHYPjoFaiB5sgG.json';
         
         let allItems = [];
         let displayedItems = 0;
-        const ITEMS_PER_PAGE = 6;
+        const ITEMS_PER_PAGE = 12; 
         let selectedItem = null;
         let isSavedView = false;
         let currentIndex = 0;
@@ -191,70 +189,91 @@
             if(!isBackground) document.getElementById('loader').style.opacity = '1';
 
             try {
-                const tempoExato = new Date().getTime();
-                const urlLimpa = `${JSON_FEED_URL}?forcar=${tempoExato}`;
-                
-                let data;
+                const urlLimpa = `${JSON_FEED_URL}?t=${new Date().getTime()}`;
+                let data = null;
+
                 try {
-                    const res = await fetch(urlLimpa, { cache: "no-store" });
-                    data = await res.json();
-                } catch(err) {
-                    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlLimpa)}`;
-                    const resProxy = await fetch(proxyUrl, { cache: "no-store" });
-                    data = await resProxy.json();
+                    const res1 = await fetch(urlLimpa, { cache: "no-store" });
+                    if(res1.ok) data = await res1.json();
+                } catch(e) {}
+
+                if (!data || !data.items) {
+                    try {
+                        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(urlLimpa)}`;
+                        const res2 = await fetch(proxyUrl, { cache: "no-store" });
+                        if(res2.ok) data = await res2.json();
+                    } catch(e) {}
+                }
+
+                if (!data || !data.items || !Array.isArray(data.items)) {
+                    throw new Error("Erro de dados.");
                 }
                 
-                // Limpeza da cache antiga para não misturar formatos
-                let cachedData = JSON.parse(localStorage.getItem('historias_cache_novelas_v4') || '[]');
+                let cachedData = JSON.parse(localStorage.getItem('historias_cache_ig_desbloqueado') || '[]');
                 let novosEncontrados = false;
                 
-                if(data && data.items && data.items.length > 0) {
-                    data.items.forEach(newItem => {
-                        let linkReal = newItem.url || newItem.id || "";
-                        let idReal = newItem.id || linkReal;
-                        let tituloReal = newItem.title || "Episódio de Novela";
-                        let dataReal = newItem.date_published || new Date().toISOString();
-                        
-                        let imagemCapa = newItem.image || "";
-                        
-                        // Extração forçada de imagem do Instagram
-                        if (!imagemCapa && newItem.content_html) {
-                            const imgMatch = newItem.content_html.match(/src=["']([^"']+)["']/);
-                            if (imgMatch) imagemCapa = imgMatch[1];
-                        }
-                        
-                        if (!imagemCapa) imagemCapa = 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=500';
-
-                        if (linkReal && !cachedData.some(oldItem => oldItem.guid === idReal || oldItem.link === linkReal)) {
-                            cachedData.push({
-                                guid: idReal,
-                                title: tituloReal,
-                                link: linkReal,
-                                pubDate: dataReal,
-                                thumbnail: imagemCapa
-                            });
-                            novosEncontrados = true;
-                        }
-                    });
+                data.items.forEach(newItem => {
+                    let linkReal = newItem.url || newItem.id || "";
+                    let idReal = newItem.id || linkReal;
+                    let tituloReal = newItem.title || "Reel do Instagram";
+                    let dataReal = newItem.date_published || new Date().toISOString();
                     
-                    cachedData.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-                    localStorage.setItem('historias_cache_novelas_v4', JSON.stringify(cachedData));
-                }
+                    let imagemCapa = newItem.image || "";
+                    
+                    if (!imagemCapa && newItem.content_html) {
+                        const imgMatch = newItem.content_html.match(/src=["']([^"']+)["']/);
+                        if (imgMatch) imagemCapa = imgMatch[1];
+                    }
+                    
+                    // DESBLOQUEADOR DE IMAGENS ATIVO
+                    if (imagemCapa && imagemCapa.startsWith('http')) {
+                        imagemCapa = `https://wsrv.nl/?url=${encodeURIComponent(imagemCapa)}`;
+                    } else {
+                        imagemCapa = 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=500';
+                    }
+
+                    if (linkReal && !cachedData.some(oldItem => oldItem.guid === idReal || oldItem.link === linkReal)) {
+                        cachedData.push({
+                            guid: idReal,
+                            title: tituloReal,
+                            link: linkReal,
+                            pubDate: dataReal,
+                            thumbnail: imagemCapa
+                        });
+                        novosEncontrados = true;
+                    }
+                });
+                
+                cachedData.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                localStorage.setItem('historias_cache_ig_desbloqueado', JSON.stringify(cachedData));
                 
                 allItems = cachedData;
 
                 if(!isBackground) {
-                    if(allItems.length > 0) {
-                        document.getElementById('feed-count-label').innerText = `${allItems.length} episódios`;
+                    const labelMsg = document.getElementById('feed-count-label');
+                    if(novosEncontrados) {
+                        labelMsg.innerText = `${allItems.length} vídeos guardados`;
                         displayedItems = 0;
                         document.getElementById('feed').innerHTML = '';
                         loadMoreItems(); 
                     } else {
-                        document.getElementById('feed').innerHTML = "<div class='no-results'>Nenhum episódio encontrado.</div>";
+                        // SINAL DE AVISO DO RSS.APP
+                        let originalText = `${allItems.length} vídeos guardados`;
+                        labelMsg.innerText = "À espera do RSS.app...";
+                        labelMsg.style.color = "#facc15"; // Amarelo para chamar atenção
+                        
+                        setTimeout(() => {
+                            labelMsg.innerText = originalText;
+                            labelMsg.style.color = "var(--text-meta)";
+                        }, 4000);
+                        
+                        if(displayedItems === 0 && allItems.length > 0) {
+                            loadMoreItems();
+                        }
                     }
                     document.getElementById('loader').style.opacity = '0';
                 } else if(novosEncontrados && !isSavedView && displayedItems > 0) {
-                    document.getElementById('feed-count-label').innerText = `${allItems.length} episódios`;
+                    document.getElementById('feed-count-label').innerText = `${allItems.length} vídeos guardados`;
                     const feed = document.getElementById('feed');
                     feed.innerHTML = '';
                     let itemsAnteriores = displayedItems;
@@ -265,16 +284,15 @@
                 }
 
             } catch (e) { 
-                console.error(e);
                 if(!isBackground) {
-                    allItems = JSON.parse(localStorage.getItem('historias_cache_novelas_v4') || '[]');
+                    allItems = JSON.parse(localStorage.getItem('historias_cache_ig_desbloqueado') || '[]');
                     if(allItems.length > 0) {
-                        document.getElementById('feed-count-label').innerText = `${allItems.length} episódios guardados`;
+                        document.getElementById('feed-count-label').innerText = `${allItems.length} vídeos na memória`;
                         displayedItems = 0;
                         document.getElementById('feed').innerHTML = '';
                         loadMoreItems();
                     } else {
-                        document.getElementById('feed').innerHTML = "<div class='no-results'>Erro de ligação. Clica no botão de atualizar.</div>";
+                        document.getElementById('feed').innerHTML = "<div class='no-results'><i class='fas fa-exclamation-triangle'></i> A procurar ligação...</div>";
                     }
                     document.getElementById('loader').style.opacity = '0';
                 }
@@ -300,7 +318,7 @@
             
             card.innerHTML = `
                 <img class="movie-poster" src="${imgUrl}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=500'">
-                <div class="movie-rating"><i class="fas fa-play" style="color: #E1306C;"></i></div>
+                <div class="movie-rating"><i class="fas fa-play" style="color: var(--primary);"></i></div>
                 <div class="movie-time"><i class="far fa-clock"></i> ${tempoStr}</div>
             `;
             contentor.appendChild(card);
@@ -336,24 +354,20 @@
             }
         }, 60000);
 
-        setInterval(() => { fetchContent(true); }, 120000); 
+        setInterval(() => { fetchContent(true); }, 60000); 
 
         function openModal(item) {
             selectedItem = item;
-            let currentList = isSavedView ? JSON.parse(localStorage.getItem('historias_salvas') || '[]') : allItems;
+            let currentList = isSavedView ? JSON.parse(localStorage.getItem('historias_salvas_ig') || '[]') : allItems;
             currentIndex = currentList.findIndex(x => x.guid === item.guid);
             
-            let rawTitle = item.title || "Novela";
+            let rawTitle = item.title || "Reel do Instagram";
             rawTitle = rawTitle.split('#')[0].trim(); 
             document.getElementById('m-title').innerText = rawTitle;
             
             const tempoStr = calcularTempoPassado(item.pubDate);
             document.getElementById('m-time').innerHTML = `<i class="far fa-clock"></i> Publicado ${tempoStr.toLowerCase()}`;
             
-            
-            // ==========================================
-            // LEITOR INTELIGENTE: INSTAGRAM VS FACEBOOK
-            // ==========================================
             let linkVideo = item.link;
             let embedHtml = "";
             let btnFallback = document.getElementById('m-fallback-btn');
@@ -361,32 +375,16 @@
             btnFallback.href = linkVideo;
 
             if (linkVideo.includes('instagram.com')) {
-                // Prepara o link para abrir dentro do site
                 let urlLimpa = linkVideo.split('?')[0];
                 if (!urlLimpa.endsWith('/')) { urlLimpa += '/'; }
                 let urlEmbedIg = urlLimpa + 'embed/';
                 
                 embedHtml = `<iframe src="${urlEmbedIg}" width="100%" height="550" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
-                
-                // Atualiza as cores do botão para Instagram
-                btnFallback.innerHTML = '<i class="fab fa-instagram"></i> Abrir no Instagram';
-                btnFallback.style.background = 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)';
-                
-            } else if (linkVideo.includes('facebook.com')) {
-                const fbUrlCodificado = encodeURIComponent(linkVideo);
-                embedHtml = `<iframe src="https://www.facebook.com/plugins/video.php?href=${fbUrlCodificado}&show_text=false&width=350" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
-                
-                // Atualiza as cores do botão para Facebook
-                btnFallback.innerHTML = '<i class="fab fa-facebook"></i> Abrir no Facebook';
-                btnFallback.style.background = '#1877F2';
             } else {
                 embedHtml = `<iframe src="${linkVideo}" width="100%" height="550" frameborder="0"></iframe>`;
-                btnFallback.innerHTML = '<i class="fas fa-external-link-alt"></i> Ver original';
-                btnFallback.style.background = 'var(--surface)';
             }
             
             document.getElementById('m-trailer').innerHTML = embedHtml;
-
 
             document.getElementById('m-next-btn').onclick = () => playNext(currentList);
 
@@ -430,13 +428,13 @@
         }
 
         function toggleSave() {
-            let saved = JSON.parse(localStorage.getItem('historias_salvas') || '[]');
+            let saved = JSON.parse(localStorage.getItem('historias_salvas_ig') || '[]');
             const idx = saved.findIndex(x => x.guid === selectedItem.guid);
             
             if(idx > -1) { saved.splice(idx, 1); } 
             else { saved.push(selectedItem); }
             
-            localStorage.setItem('historias_salvas', JSON.stringify(saved));
+            localStorage.setItem('historias_salvas_ig', JSON.stringify(saved));
             updateActionBtns();
             
             if(isSavedView) {
@@ -454,19 +452,19 @@
             
             if(isSavedView) {
                 btn.classList.add('active');
-                const saved = JSON.parse(localStorage.getItem('historias_salvas') || '[]');
+                const saved = JSON.parse(localStorage.getItem('historias_salvas_ig') || '[]');
                 document.getElementById('feed-count-label').style.display = 'none';
                 document.querySelector('.feed-header span:first-child').innerHTML = '<i class="fas fa-bookmark" style="color: var(--text);"></i> Minha Lista';
                 document.querySelector('.refresh-btn').style.display = 'none';
                 document.getElementById('loader').style.opacity = '0';
                 
                 feed.innerHTML = '';
-                if(saved.length === 0) feed.innerHTML = "<div class='no-results'>Nenhuma história guardada.</div>";
+                if(saved.length === 0) feed.innerHTML = "<div class='no-results'>Nenhum vídeo guardado.</div>";
                 saved.forEach(item => desenharCartao(item, feed));
             } else {
                 btn.classList.remove('active');
                 document.getElementById('feed-count-label').style.display = 'block';
-                document.querySelector('.feed-header span:first-child').innerHTML = '<i class="fas fa-fire" style="color: #E1306C;"></i> Últimas Novelas';
+                document.querySelector('.feed-header span:first-child').innerHTML = '<i class="fab fa-instagram" style="color: var(--primary);"></i> Últimos Reels';
                 document.querySelector('.refresh-btn').style.display = 'inline-block';
                 
                 displayedItems = 0;
@@ -476,12 +474,12 @@
         }
 
         function updateActionBtns() {
-            const saved = JSON.parse(localStorage.getItem('historias_salvas') || '[]');
+            const saved = JSON.parse(localStorage.getItem('historias_salvas_ig') || '[]');
             const isSaved = saved.some(x => x.guid === selectedItem.guid);
             const saveBtn = document.getElementById('m-save-btn');
             
             if(isSaved) { 
-                saveBtn.style.color = '#E1306C'; 
+                saveBtn.style.color = 'var(--primary)'; 
                 saveBtn.innerHTML = '<i class="fas fa-bookmark"></i> Guardado'; 
             } else { 
                 saveBtn.style.color = 'var(--text)'; 
@@ -490,9 +488,6 @@
         }
 
         window.onload = () => { 
-            // Limpa lixo antigo por segurança no primeiro arranque
-            localStorage.removeItem('historias_cache_novelas_v3'); 
-            
             observer.observe(document.getElementById('loader'));
             fetchContent(); 
         };
