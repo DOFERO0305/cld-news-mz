@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Histórias & Reels Virais</title>
+    <title>Reels & Histórias Virais</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -34,7 +34,7 @@
         .refresh-btn { background: none; border: none; color: var(--primary); font-size: 1.2rem; cursor: pointer; transition: 0.2s; padding: 5px; margin-left: 10px; }
         .refresh-btn:active { transform: rotate(180deg) scale(0.8); }
 
-        .feed { padding: 20px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+        .feed { padding: 20px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; padding-bottom: 100px; } /* Espaço para botões de baixo */
         @media(max-width: 500px) { .feed { grid-template-columns: repeat(2, 1fr); gap: 15px; } }
         
         .movie-card { background: var(--surface); border-radius: var(--radius-md); overflow: hidden; cursor: pointer; transition: transform 0.2s; position: relative; aspect-ratio: 2/3; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
@@ -55,9 +55,6 @@
         
         .trailer-container { position: relative; width: 100%; display: flex; justify-content: center; background: #000; border-radius: var(--radius-md); overflow: hidden; min-height: 400px;}
         .trailer-container iframe { width: 100%; height: 550px; border: none; border-radius: 8px;}
-        
-        .ig-fallback-btn { display: flex; justify-content: center; align-items: center; gap: 8px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; text-decoration: none; padding: 12px; border-radius: var(--radius-md); font-weight: 700; margin-top: 15px; transition: 0.2s; }
-        .ig-fallback-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         .action-row { display: flex; gap: 10px; margin-top: 15px; margin-bottom: 15px; }
         .btn-action { flex: 1; padding: 12px; border: none; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.2s; }
@@ -74,9 +71,75 @@
         .related-item-title { position: absolute; bottom: 0; background: linear-gradient(transparent, rgba(0,0,0,0.9)); color: white; width: 100%; font-size: 0.75rem; padding: 20px 5px 5px; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
 
         .loader { text-align: center; padding: 20px; color: var(--primary); font-size: 2rem; width: 100%; grid-column: 1/-1; opacity: 0; transition: 0.3s; min-height: 80px; }
+
+        /* ==================================================
+           WHATSAPP ANIMADO & ASSINATURA ESQUERDA
+        ================================================== */
+        .whatsapp-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            z-index: 900;
+            text-decoration: none;
+            animation: pulse-wobble 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse-wobble {
+            0% { transform: scale(1) rotate(0deg); }
+            10% { transform: scale(1.1) rotate(-10deg); }
+            20% { transform: scale(1.1) rotate(10deg); }
+            30% { transform: scale(1.1) rotate(-10deg); }
+            40% { transform: scale(1.1) rotate(10deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .dev-signature {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.75);
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            color: #ddd;
+            font-size: 0.8rem;
+            z-index: 900;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            pointer-events: none; /* Para não bloquear cliques por baixo */
+        }
+        .dev-signature p { margin: 0; line-height: 1.5; }
+        .dev-signature strong { color: #fff; font-size: 0.85rem; }
+        .dev-signature .email { color: var(--primary); }
+
+        @media(max-width: 600px) {
+            .whatsapp-btn { width: 50px; height: 50px; font-size: 28px; bottom: 15px; right: 15px; }
+            .dev-signature { bottom: 15px; left: 15px; padding: 8px 12px; font-size: 0.7rem; max-width: 65%; }
+            .dev-signature strong { font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
+
+    <a href="https://wa.me/258849085157?text=Olá,%20gostaria%20de%20falar%20sobre%20o%20site%20ou%20fazer%20uma%20parceria." target="_blank" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="dev-signature">
+        <p>Desenvolvido por:<br><strong>Donaldo Fernando Rodrigues</strong></p>
+        <p class="email"><i class="fas fa-envelope"></i> donald.fer.fer@gmail.com</p>
+    </div>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
     <div class="sidebar" id="sidebar">
@@ -114,10 +177,6 @@
                 
                 <div class="trailer-container" id="m-trailer"></div>
                 
-                <a id="m-fallback-btn" href="#" target="_blank" class="ig-fallback-btn">
-                    <i class="fab fa-instagram"></i> Abrir vídeo no Instagram
-                </a>
-
                 <h2 id="m-title" class="modal-title">Título</h2>
                 <div class="modal-time-detail" id="m-time"><i class="far fa-clock"></i> Publicado há pouco</div>
                 
@@ -127,7 +186,7 @@
                 </div>
 
                 <div class="related-section" id="related-section">
-                    <div class="related-title"><i class="fas fa-list-ul"></i> Mais Vídeos:</div>
+                    <div class="related-title"><i class="fas fa-list-ul"></i> Relacionados:</div>
                     <div class="related-grid" id="m-related-grid"></div>
                 </div>
             </div>
@@ -209,7 +268,7 @@
                     throw new Error("Erro de dados.");
                 }
                 
-                let cachedData = JSON.parse(localStorage.getItem('historias_cache_ig_desbloqueado') || '[]');
+                let cachedData = JSON.parse(localStorage.getItem('historias_cache_final_v5') || '[]');
                 let novosEncontrados = false;
                 
                 data.items.forEach(newItem => {
@@ -225,7 +284,7 @@
                         if (imgMatch) imagemCapa = imgMatch[1];
                     }
                     
-                    // DESBLOQUEADOR DE IMAGENS ATIVO
+                    // Desbloqueador de imagens mantido
                     if (imagemCapa && imagemCapa.startsWith('http')) {
                         imagemCapa = `https://wsrv.nl/?url=${encodeURIComponent(imagemCapa)}`;
                     } else {
@@ -245,35 +304,35 @@
                 });
                 
                 cachedData.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-                localStorage.setItem('historias_cache_ig_desbloqueado', JSON.stringify(cachedData));
+                localStorage.setItem('historias_cache_final_v5', JSON.stringify(cachedData));
                 
                 allItems = cachedData;
 
                 if(!isBackground) {
                     const labelMsg = document.getElementById('feed-count-label');
-                    if(novosEncontrados) {
-                        labelMsg.innerText = `${allItems.length} vídeos guardados`;
+                    if(novosEncontrados || allItems.length > 0) {
+                        labelMsg.innerText = `${allItems.length} vídeos disponíveis`;
                         displayedItems = 0;
                         document.getElementById('feed').innerHTML = '';
                         loadMoreItems(); 
                     } else {
-                        // SINAL DE AVISO DO RSS.APP
-                        let originalText = `${allItems.length} vídeos guardados`;
+                        labelMsg.innerText = "À espera de conteúdo...";
+                    }
+                    
+                    if(!novosEncontrados && allItems.length > 0) {
+                        let originalText = `${allItems.length} vídeos disponíveis`;
                         labelMsg.innerText = "À espera do RSS.app...";
-                        labelMsg.style.color = "#facc15"; // Amarelo para chamar atenção
+                        labelMsg.style.color = "#facc15"; 
                         
                         setTimeout(() => {
                             labelMsg.innerText = originalText;
                             labelMsg.style.color = "var(--text-meta)";
                         }, 4000);
-                        
-                        if(displayedItems === 0 && allItems.length > 0) {
-                            loadMoreItems();
-                        }
                     }
+                    
                     document.getElementById('loader').style.opacity = '0';
                 } else if(novosEncontrados && !isSavedView && displayedItems > 0) {
-                    document.getElementById('feed-count-label').innerText = `${allItems.length} vídeos guardados`;
+                    document.getElementById('feed-count-label').innerText = `${allItems.length} vídeos disponíveis`;
                     const feed = document.getElementById('feed');
                     feed.innerHTML = '';
                     let itemsAnteriores = displayedItems;
@@ -285,14 +344,14 @@
 
             } catch (e) { 
                 if(!isBackground) {
-                    allItems = JSON.parse(localStorage.getItem('historias_cache_ig_desbloqueado') || '[]');
+                    allItems = JSON.parse(localStorage.getItem('historias_cache_final_v5') || '[]');
                     if(allItems.length > 0) {
                         document.getElementById('feed-count-label').innerText = `${allItems.length} vídeos na memória`;
                         displayedItems = 0;
                         document.getElementById('feed').innerHTML = '';
                         loadMoreItems();
                     } else {
-                        document.getElementById('feed').innerHTML = "<div class='no-results'><i class='fas fa-exclamation-triangle'></i> A procurar ligação...</div>";
+                        document.getElementById('feed').innerHTML = "<div class='no-results'>A procurar ligação...</div>";
                     }
                     document.getElementById('loader').style.opacity = '0';
                 }
@@ -311,7 +370,15 @@
         function desenharCartao(item, contentor) {
             const card = document.createElement('div');
             card.className = 'movie-card';
-            card.onclick = () => openModal(item);
+            
+            // Tratamento contra erros ao clicar
+            card.addEventListener('click', function() {
+                try {
+                    openModal(item);
+                } catch(err) {
+                    console.error("Erro ao abrir janela", err);
+                }
+            });
             
             const imgUrl = item.thumbnail;
             const tempoStr = calcularTempoPassado(item.pubDate);
@@ -370,14 +437,12 @@
             
             let linkVideo = item.link;
             let embedHtml = "";
-            let btnFallback = document.getElementById('m-fallback-btn');
             
-            btnFallback.href = linkVideo;
-
+            // O código agora constrói o leitor mas esconde as bordas extra (hidecaption=true)
             if (linkVideo.includes('instagram.com')) {
                 let urlLimpa = linkVideo.split('?')[0];
                 if (!urlLimpa.endsWith('/')) { urlLimpa += '/'; }
-                let urlEmbedIg = urlLimpa + 'embed/';
+                let urlEmbedIg = urlLimpa + 'embed/?hidecaption=true';
                 
                 embedHtml = `<iframe src="${urlEmbedIg}" width="100%" height="550" frameborder="0" scrolling="no" allowtransparency="true"></iframe>`;
             } else {
@@ -388,6 +453,7 @@
 
             document.getElementById('m-next-btn').onclick = () => playNext(currentList);
 
+            // Grelha de Relacionados ativada perfeitamente
             const relatedContainer = document.getElementById('m-related-grid');
             relatedContainer.innerHTML = '';
             
@@ -488,6 +554,7 @@
         }
 
         window.onload = () => { 
+            localStorage.removeItem('historias_cache_ig_desbloqueado'); // Prevenção de bugs antigos
             observer.observe(document.getElementById('loader'));
             fetchContent(); 
         };
